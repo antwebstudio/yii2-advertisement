@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'setting:ntext',
             'status',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'ant\grid\ActionColumn'],
         ],
     ]); ?>
 

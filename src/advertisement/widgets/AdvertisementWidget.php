@@ -10,6 +10,7 @@ class AdvertisementWidget extends \yii\base\Widget {
 	public $height;
 	public $width;
 	public $options = [];
+	public $defaultUrl = 'javascript:;';
 	
 	public function run() {
 		$placeholder = $this->getPlaceholder();
@@ -37,10 +38,16 @@ class AdvertisementWidget extends \yii\base\Widget {
 					$height = strpos($this->height, 'px') === false ? $this->height.'px' : $this->height;
 					
 					$style = 'object-fit:cover; ';
-					if (isset($this->height)) $style .= 'height: '.$height.'; ';
+					if (isset($this->height)) $style .= 'max-height: '.$height.'; ';
 					if (isset($this->width)) $style .= 'width: '.$width.'; ';
 					
-					$html .= Html::img($url, ['style' => $style]);
+					$style .= 'max-width: 100%; ';
+					
+					if ($ads->target_url) {
+						$html .= Html::a(Html::img($url, ['style' => $style]), $ads->target_url, ['target' => '_blank']);
+					} else {
+						$html .= Html::img($url, ['style' => $style]);
+					}
 				}
 			}
 		} else {
@@ -52,6 +59,6 @@ class AdvertisementWidget extends \yii\base\Widget {
 	}
 	
 	protected function renderEmpty() {
-		return Html::img('https://via.placeholder.com/'.$this->width.'x'.$this->height);
+		return Html::a(Html::img('https://via.placeholder.com/'.$this->width.'x'.$this->height), $this->defaultUrl);
 	}
 }
