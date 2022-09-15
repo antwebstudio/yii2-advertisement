@@ -29,7 +29,7 @@ class AdvertisementWidget extends \yii\base\Widget {
 	protected function renderAds($ads) {
 		$html = Html::beginTag('div', ['class' => 'ads']);
 		
-		if (isset($ads)) {
+		if (false && isset($ads)) {
 			if ($ads->type == 0) {
 				$url = FileAttachment::getFirstUrl($ads->file);
 				
@@ -59,6 +59,16 @@ class AdvertisementWidget extends \yii\base\Widget {
 	}
 	
 	protected function renderEmpty() {
+		return '<ins class="adsbygoogle"
+			 style="display:block"
+			 data-ad-client="ca-pub-7254200052353371"
+			 data-ad-slot="2937646921"
+			 data-ad-format="auto"
+			 data-full-width-responsive="true"></ins>
+		<script>
+			 (adsbygoogle = window.adsbygoogle || []).push({});
+		</script>';
+		
 		return Html::a(Html::img('https://via.placeholder.com/'.$this->width.'x'.$this->height), $this->defaultUrl);
 	}
 }
